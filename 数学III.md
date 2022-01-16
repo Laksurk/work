@@ -2,7 +2,9 @@
 
 #### （一）偏序
 
-**【定义 1】**对于集合 $X$、$Y$，称 $X\times Y = \left\{(x,y):x\in X,y\in Y\right\}$ 为 $X$ 与 $Y$ 的**笛卡尔积**。
+**【定义 1】**对于集合 $X$ 与 $Y$，称 $X\times Y = \left\{(x,y):x\in X, y\in Y\right\}$ 为集合 $X$ 与 $Y$ 的**直积**，又称**笛卡尔积**。
+
+> 例如 $\{1,2\}\times\{a,b,c\}=\{(1,a),(1,b),(1,c),(2,a),(2,b),(2,c)\}$。
 
 **【定义 2】**对于集合 $X$，若 $R$ 为 $X\times X$ 的一个子集，则称 $R$ 为 $X$ 上的一个**二元关系**。对于 $x,y\in X$，若 $(x,y)\in R$，则称 $x$ 与 $y$ **满足关系** $R$，记作 $xRy$；反之则称 $x$ 与 $y$ **不满足关系** $R$，记作 $x\not Ry$。
 
@@ -24,7 +26,7 @@
 
 **【定义 6】**对于偏序集 $(X,\preccurlyeq)$，对于 $x,y\in X$，若 $x\preccurlyeq y \lor y\preccurlyeq x$，则称 $x$ 与 $y$ **可比**；反之则称 $x$ 与 $y$ **不可比**。若 $\forall x,y\in X$，$x$ 与 $y$ 均可比，则称 $\preccurlyeq$ 为一个**全序关系**。
 
-> 如 $X=\left\{1,2,3\right\}$ 时，$\le$ 是全序关系，但 $<$ 不是。
+> 如 $X=\left\{1,2,3\right\}$ 时，$\leqslant$ 是全序关系，但 $<$ 不是。
 
 #### （二）卷积与逆函数
 
@@ -40,7 +42,19 @@ $$
 
 **【定理 1】**$(f*g)*h=f*(g*h)$，即**卷积满足结合律**。
 
-> **证明&emsp;**略
+> **证明&emsp;**利用卷积定义展开式子，交换求和顺序即可。
+> $$
+> \begin{align}&((f*g)*h)(x,y)\\
+> =&\sum\limits_{z:x\preccurlyeq z\preccurlyeq y}(\sum\limits_{u:x\preccurlyeq u\preccurlyeq z}f(x,u)g(u,z))h(z,y)\\
+> =&\sum\limits_{z:x\preccurlyeq z\preccurlyeq y}\sum\limits_{u:x\preccurlyeq u\preccurlyeq z}f(x,u)g(u,z)h(z,y)\\
+> =&\sum\limits_{z:x\preccurlyeq z\preccurlyeq y}\sum\limits_{u}[x\preccurlyeq u\preccurlyeq z]f(x,u)g(u,z)h(z,y)\\
+> =&\sum\limits_{u}\sum\limits_{z:x\preccurlyeq z\preccurlyeq y}[x\preccurlyeq u\preccurlyeq z]f(x,u)g(u,z)h(z,y)\\
+> =&\sum\limits_{u:x\preccurlyeq u\preccurlyeq y}\sum\limits_{z:u\preccurlyeq z\preccurlyeq y}f(x,u)g(u,z)h(z,y)\\
+> =&\sum\limits_{u:x\preccurlyeq u\preccurlyeq y}f(x,u)\sum\limits_{z:u\preccurlyeq z\preccurlyeq y}g(u,z)h(z,y)\\
+> =&\sum\limits_{u:x\preccurlyeq u\preccurlyeq y}f(x,u)(g*h)(u,z)\\
+> =&(f*(g*h))(x,y)
+> \end{align}
+> $$
 
 **【定义 3】**对于偏序集 $(X,\preccurlyeq)$，定义 $\delta(x,y)=[x=y]$ $(\delta\in\cal F$$(X))$。
 
@@ -78,9 +92,9 @@ $$
 
 > 小结：**任意一个 $\cal F$$(X)$ 中的函数 $f$ 必有唯一的逆函数 $g$，使得 $f*g=g*f=\delta$。**
 
-#### （三）$\mu$ 函数与莫比乌斯反演
+#### （三）广义莫比乌斯反演
 
-**【定义 1】**对于偏序集 $(X,\preccurlyeq)$，定义 $\zeta(x,y)=[x\preccurlyeq y]$ $(\zeta\in\cal F$$(X))$；定义 $\mu$ 为 $\zeta$ 的反函数，即 $\mu*\zeta=\zeta*\mu=\delta$。
+**【定义 1】**对于偏序集 $(X,\preccurlyeq)$，定义 $\zeta(x,y)=[x\preccurlyeq y]$ $(\zeta\in\cal F$$(X))$；定义 $\mu$ 为 $\zeta$ 的反函数，即 $\mu*\zeta=\zeta*\mu=\delta$。称 $\mu$ 为 $(X,\preccurlyeq)$ 上的**莫比乌斯函数**。
 
 **【定理 1】**$\mu$ 函数满足以下递归式：
 $$
@@ -105,16 +119,36 @@ $$
 
 > **证明&emsp;**将 $G(y)$ 代入，交换求和顺序，然后根据 $\mu$ 函数的定义简化式子即可。
 > $$
-> \begin{array}{}&\sum\limits_{y:y\preccurlyeq x}G(y)\mu(y,x)\\
+> \begin{align}&\sum\limits_{y:y\preccurlyeq x}G(y)\mu(y,x)\\
 > =& \sum\limits_{y:y\preccurlyeq x}\sum\limits_{z:z\preccurlyeq y}F(z)\mu(y,x)\\
 > =& \sum\limits_{y:y\preccurlyeq x}\sum\limits_{z}[z\preccurlyeq y]F(z)\mu(y,x)\\
 > =& \sum\limits_{z}F(z)\sum\limits_{y:y\preccurlyeq x}[z\preccurlyeq y]\mu(y,x)\\
 > =& \sum\limits_{z}F(z)\sum\limits_{y:z\preccurlyeq y\preccurlyeq x}\zeta(z,y)\mu(y,x)\\
 > =& \sum\limits_{z}F(z)\delta(z,x)\\
 > =& F(x)
-> \end{array}\\
+> \end{align}\\
 > $$
 
-#### （四）
+#### （四）狭义莫比乌斯反演
 
+**【定义 1】**对于偏序集 $(X,\preccurlyeq_1)$、$(Y,\preccurlyeq_2)$，设集合 $X\times Y$ 上有二元关系 $R=\{((x,y),(x',y')):x\preccurlyeq_1x', y\preccurlyeq_2y'\}$，称 $(X\times Y,R)$  为这两个**偏序集的直积**。
+
+> 易证，$R$ 为偏序关系，即**偏序集的直积还是偏序集**。将 $R$ 写为 $\preccurlyeq$，则有
+> $$
+> (x,y)\preccurlyeq(x',y')\iff x\preccurlyeq_1x'\land y\preccurlyeq_2y'
+> $$
+
+**【定理 1】**对于偏序集 $(X,\preccurlyeq_1)$、$(Y,\preccurlyeq_2)$，设其上的莫比乌斯函数分别为 $\mu_1$、$\mu_2$，设这两个偏序集的直积 $(X\times Y,\preccurlyeq)$ 上的莫比乌斯函数为 $\mu$，则有
+$$
+\mu((x,y),(x',y'))=\mu_1(x,x')\mu_2(y,y')
+$$
+
+> **证明&emsp;**利用偏序集直积和 $\mu$ 函数的定义易证。
+> $$
+> \begin{align}
+> [(x,y)\preccurlyeq(x',y')] &= [x\preccurlyeq_1x'][y\preccurlyeq_2y']\\
+> \therefore \zeta((x,y),(x',y')) &= \zeta_1(x,x')\zeta_2(y,y')\\
+> \because (\mu*\zeta)(x,y) &=\delta(x,y)
+> \end{align}
+> $$
 
