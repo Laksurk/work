@@ -105,7 +105,7 @@ $$
 \end{array}\right.
 $$
 
-> **证明&emsp;**将 $\mu$ 代入【定理 2-3】，利用 $\mu$ 函数的定义可得。
+**证明&emsp;**将 $\mu$ 代入【定理 2-3】，利用 $\mu$ 函数的定义可得。
 
 **【定理 2】莫比乌斯反演公式**：对于有限偏序集 $(X,\preccurlyeq)$，若函数 $F$、$G:X\rightarrow\R$ 满足
 $$
@@ -144,11 +144,34 @@ $$
 $$
 
 <div hidden="true">
-> **证明&emsp;**利用偏序集直积和 $\mu$ 函数的定义，讨论各种情况。
->
-> 若 $ x\preccurlyeq_1x'\land y\preccurlyeq_2y'$ 不成立，则显然 $左边 = 0 = 右边$，故只需要考虑成立的情况。
->
-> ① 若 $(x,y)=(x',y')$，则 $左边=1=右边$。
->
-> ② 若 $x=x'\land y\prec y'$，则</div>
+> **证明&emsp;**若 $x\prec x'\land y\prec y'$ 不成立，根据 $\mu$ 的定义很容易证明，故只需证其成立的情况。
+> $$
+> \begin{align} & \mu((x,y),(x',y'))\\
+> =& -\sum\limits_{(a,b):(x,y)\preccurlyeq (a,b)\prec (x',y')}\mu((x,y),(a,b))\\
+> =& -\sum\limits_{a:x\preccurlyeq a\prec x'}\sum\limits_{b:y\preccurlyeq b\prec y'}\mu((x,y),(a,b))
+> \end{align}
+> $$
+> </div>
+> **证明&emsp;**我不会证，故略。
+
+**【定义 2】**定义集合 $X_n = \{1,2,3,\cdots,n\}(n\in\Z^+)$，偏序集 $D_n=(X_n,|)$。
+
+> $|$ 表示整除运算。易证，$|$ 是偏序关系。
+
+**【定理 2】**对于偏序集 $D_n$，$\forall a,b\in X_n$，若 $a|b$，则 $\mu(a,b)=\mu(1,\dfrac ba)$。
+
+> **证明&emsp;**我不会证，故略。
+
+> 这启发我们，$D_n$ 上第一个参数为 $1$ 的 $\mu$ 函数有较大价值。
+
+**【定理 3】**对于偏序集 $D_n$，有
+$$
+\mu(1,n)=\left\{\begin{array}{}
+1 & n=1\\
+(-1)^k & n=p_1p_2\cdots p_k,\ \ p_i\ne p_j(i\ne j)\\
+0 & \mathrm{otherwise}
+\end{array}\right.
+$$
+
+> **证明&emsp;**将 $n$ 质因数分解为 $n=p_1^{a_1}p_2^{a_2}\cdots p_k^{n_k}$。
 
