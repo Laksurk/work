@@ -143,12 +143,12 @@ $$
 \mu((x,y),(x',y'))=\mu_1(x,x')\mu_2(y,y')
 $$
 
-> **证明&emsp;**利用偏序集直积和 $\mu$ 函数的定义易证。
-> $$
-> \begin{align}
-> [(x,y)\preccurlyeq(x',y')] &= [x\preccurlyeq_1x'][y\preccurlyeq_2y']\\
-> \therefore \zeta((x,y),(x',y')) &= \zeta_1(x,x')\zeta_2(y,y')\\
-> \because (\mu*\zeta)(x,y) &=\delta(x,y)
-> \end{align}
-> $$
+<div hidden="true">
+> **证明&emsp;**利用偏序集直积和 $\mu$ 函数的定义，讨论各种情况。
+>
+> 若 $ x\preccurlyeq_1x'\land y\preccurlyeq_2y'$ 不成立，则显然 $左边 = 0 = 右边$，故只需要考虑成立的情况。
+>
+> ① 若 $(x,y)=(x',y')$，则 $左边=1=右边$。
+>
+> ② 若 $x=x'\land y\prec y'$，则</div>
 
