@@ -74,11 +74,21 @@ g(x,y)=\left\{\begin{array}{l}
 0 & \mathrm{otherwise}
 \end{array}\right.
 $$
-> **证明&emsp;**根据逆函数的定义可直接解得。
 
-因此，**逆函数存在且唯一**（右逆函数同理）。
+$f$  的右逆函数 $h$ 的递推式为
+$$
+h(x,y)=\left\{\begin{array}{l}
+\dfrac1{f(y,y)} & x=y\\
+-\dfrac1{f(y,y)}\sum\limits_{z:x\preccurlyeq z\prec y}f(x,z)h(z,y) & x\prec y\\
+0 & \mathrm{otherwise}
+\end{array}\right.
+$$
 
-**【定理 4】** $\forall f\in\cal F$$(X)$，$f$  的右逆函数即为 $f$ 的逆函数。
+> **证明&emsp;**直接根据逆函数的定义展开卷积后解得。
+
+因此，**左、右逆函数存在且唯一**。
+
+**【定理 4】** $\forall f\in\cal F$$(X)$，$f$  的**左、右逆函数相同**。
 
 > **证明&emsp;**设 $f$ 的左、右逆函数分别为 $g$、$h$，即 $g*f=f*h=\delta$
 >
@@ -90,33 +100,29 @@ $$
 >
 >$\therefore g=h$
 
-> 小结：**任意一个 $\cal F$$(X)$ 中的函数 $f$ 必有唯一的逆函数 $g$，使得 $f*g=g*f=\delta$。**
+因此将左右逆函数统称为**逆函数**。即：**任意一个 $f\in\cal F$$(X)$ 必有唯一的逆函数 $g$，使得 $f*g=g*f=\delta$。**
 
 #### （三）广义莫比乌斯反演
 
 **【定义 1】**对于偏序集 $(X,\preccurlyeq)$，定义 $\zeta(x,y)=[x\preccurlyeq y]$ $(\zeta\in\cal F$$(X))$；定义 $\mu$ 为 $\zeta$ 的反函数，即 $\mu*\zeta=\zeta*\mu=\delta$。称 $\mu$ 为 $(X,\preccurlyeq)$ 上的**莫比乌斯函数**。
 
-**【定理 1】**$\mu$ 函数满足以下递归式：
+> 显然，$\mu(x,x)=1$；且对于 $x\npreceq y$，$\mu(x,y)=0$。
+
+**【定理 1】**对于偏序集  $(X,\preccurlyeq)$，若 $x\prec y$，则有
 $$
-\mu(x,y)=\left\{\begin{array}{l}
-1 & x=y\\
--\sum\limits_{z:x\preccurlyeq z\prec y}\mu(x,z) & x\prec y\\
-0 & \mathrm{otherwise}
-\end{array}\right.
+\sum\limits_{z:x\preccurlyeq z\preccurlyeq y}\mu(x,z)=\sum\limits_{z:x\preccurlyeq z\preccurlyeq y}\mu(z,y)=0
 $$
 
-**证明&emsp;**将 $\mu$ 代入【定理 2-3】，利用 $\mu$ 函数的定义可得。
+> **证明&emsp;**分别将 $\mu*\zeta$ 和 $\zeta*\mu$ 展开，化简式子易得。
 
 **【定理 2】莫比乌斯反演公式**：对于有限偏序集 $(X,\preccurlyeq)$，若函数 $F$、$G:X\rightarrow\R$ 满足
 $$
 G(x)=\sum\limits_{z:z\preccurlyeq x}F(z)
 $$
-
 则有：
 $$
 F(x)=\sum\limits_{y:y\preccurlyeq x}G(y)\mu(y,x)
 $$
-
 > **证明&emsp;**将 $G(y)$ 代入，交换求和顺序，然后根据 $\mu$ 函数的定义简化式子即可。
 > $$
 > \begin{align}&\sum\limits_{y:y\preccurlyeq x}G(y)\mu(y,x)\\
@@ -142,7 +148,6 @@ $$
 $$
 \mu((x,y),(x',y'))=\mu_1(x,x')\mu_2(y,y')
 $$
-
 > **证明&emsp;**若 $x\prec x'\land y\prec y'$ 不成立，根据 $\mu$ 的定义很容易证明，故只需证其成立的情况。
 > $$
 > \begin{align} & \mu((x,y),(x',y'))\\
