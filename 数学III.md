@@ -34,7 +34,7 @@
 
 **【定义 2】**对于 $f,g\in \cal F$$(X)$，定义 $f,g$ 的**卷积** $h=f*g$ $(h\in \cal F$$(X))$ 为
 $$
-h(x,y)=\left\{\begin{array}{}
+h(x,y)=\left\{\begin{array}{l}
 \sum\limits_{z:x\preccurlyeq z\preccurlyeq y}f(x,z)g(z,y) & x\preccurlyeq y\\
 0 & \mathrm{otherwise}
 \end{array}\right.
@@ -64,11 +64,11 @@ $$
 
 > **证明&emsp;**由卷积的定义，这是显然的。
 
-**【定义 4】**对于 $f\in \cal F$$(X)$ 且满足 $\forall x\in X$，$f(x,x)\ne0$。若 $g*f=\delta$ $(g\in \cal F$$(X))$，则称 $g$ 为 $f$ 的**逆函数**；若 $f*g=\delta$，则称 $g$ 为 $f$ 的**右逆函数**。
+**【定义 4】**对于 $f\in \cal F$$(X)$ 且满足 $\forall x\in X$，$f(x,x)\ne0$。若 $g*f=\delta$ $(g\in \cal F$$(X))$，则称 $g$ 为 $f$ 的**左逆函数**；若 $f*g=\delta$，则称 $g$ 为 $f$ 的**右逆函数**。
 
-**【定理 3】**$\forall f\in\cal F$$(X)$，$f$  的逆函数 $g$ 的递推式为
+**【定理 3】**$\forall f\in\cal F$$(X)$，$f$  的左逆函数 $g$ 的递推式为
 $$
-g(x,y)=\left\{\begin{array}{}
+g(x,y)=\left\{\begin{array}{l}
 \dfrac1{f(y,y)} & x=y\\
 -\dfrac1{f(y,y)}\sum\limits_{z:x\preccurlyeq z\prec y}g(x,z)f(z,y) & x\prec y\\
 0 & \mathrm{otherwise}
@@ -98,7 +98,7 @@ $$
 
 **【定理 1】**$\mu$ 函数满足以下递归式：
 $$
-\mu(x,y)=\left\{\begin{array}{}
+\mu(x,y)=\left\{\begin{array}{l}
 1 & x=y\\
 -\sum\limits_{z:x\preccurlyeq z\prec y}\mu(x,z) & x\prec y\\
 0 & \mathrm{otherwise}
@@ -143,16 +143,14 @@ $$
 \mu((x,y),(x',y'))=\mu_1(x,x')\mu_2(y,y')
 $$
 
-<div hidden="true">
 > **证明&emsp;**若 $x\prec x'\land y\prec y'$ 不成立，根据 $\mu$ 的定义很容易证明，故只需证其成立的情况。
 > $$
 > \begin{align} & \mu((x,y),(x',y'))\\
-> =& -\sum\limits_{(a,b):(x,y)\preccurlyeq (a,b)\prec (x',y')}\mu((x,y),(a,b))\\
-> =& -\sum\limits_{a:x\preccurlyeq a\prec x'}\sum\limits_{b:y\preccurlyeq b\prec y'}\mu((x,y),(a,b))
+> =& -\sum\limits_{(u,v):(x,y)\preccurlyeq (u,v)\prec (x',y')}\mu((x,y),(u,v))\\
+> =& -\sum\limits_{(u,v):(x,y)\preccurlyeq (u,v)\preccurlyeq (x',y')}\mu((x,y),(u,v)) + \mu((x,y),(x',y'))\\
+> =& -\sum\limits_{u:x\preccurlyeq u\prec x'}\sum\limits_{v:y\preccurlyeq v\prec y'}\mu((x,y),(u,v))
 > \end{align}
 > $$
-> </div>
-> **证明&emsp;**我不会证，故略。
 
 **【定义 2】**定义集合 $X_n = \{1,2,3,\cdots,n\}(n\in\Z^+)$，偏序集 $D_n=(X_n,|)$。
 
@@ -166,7 +164,7 @@ $$
 
 **【定理 3】**对于偏序集 $D_n$，有
 $$
-\mu(1,n)=\left\{\begin{array}{}
+\mu(1,n)=\left\{\begin{array}{l}
 1 & n=1\\
 (-1)^k & n=p_1p_2\cdots p_k,\ \ p_i\ne p_j(i\ne j)\\
 0 & \mathrm{otherwise}
