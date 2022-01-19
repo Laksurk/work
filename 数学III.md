@@ -148,24 +148,43 @@ $$
 $$
 \mu((x,y),(x',y'))=\mu_1(x,x')\mu_2(y,y')
 $$
-> **证明&emsp;**若 $x\prec x'\land y\prec y'$ 不成立，根据 $\mu$ 的定义很容易证明，故只需证其成立的情况。
+> **证明&emsp;**若 $(x,y)\not\preccurlyeq(x',y')$，则 $左边=0=右边$。
+>
+> 若 $(x,y)=(x',y')$，则 $左边=1=右边$。
+>
+> 若 $(x,y)\prec(x',y')$，对满足 $(x,y)\preccurlyeq (u,v)\preccurlyeq (x',y')$ 的 $(u,v)$ 的**个数**用数学归纳法：
 > $$
 > \begin{align} & \mu((x,y),(x',y'))\\
 > =& -\sum\limits_{(u,v):(x,y)\preccurlyeq (u,v)\prec (x',y')}\mu((x,y),(u,v))\\
-> =& -\sum\limits_{(u,v):(x,y)\preccurlyeq (u,v)\preccurlyeq (x',y')}\mu((x,y),(u,v)) + \mu((x,y),(x',y'))\\
-> =& -\sum\limits_{u:x\preccurlyeq u\prec x'}\sum\limits_{v:y\preccurlyeq v\prec y'}\mu((x,y),(u,v))
+> =& -\sum\limits_{(u,v):(x,y)\preccurlyeq (u,v)\prec (x',y')}\mu_1(x,u)\mu_2(y,v)\\
+> =& -\sum\limits_{(u,v):(x,y)\preccurlyeq (u,v)\preccurlyeq (x',y')}\mu_1(x,u)\mu_2(y,v)+\mu_1(x,x')\mu_2(y,y')\\
+> =& -\sum\limits_{u:x\preccurlyeq u\preccurlyeq x'}\sum\limits_{v:y\preccurlyeq v\preccurlyeq y'}\mu_1(x,u)\mu_2(y,v)+\mu_1(x,x')\mu_2(y,y')\\
+> =& -\sum\limits_{u:x\preccurlyeq u\preccurlyeq x'}\mu_1(x,u)\sum\limits_{v:y\preccurlyeq v\preccurlyeq y'}\mu_2(y,v)+\mu_1(x,x')\mu_2(y,y')\\
+> =& \mu_1(x,x')\mu_2(y,y')
 > \end{align}
 > $$
 
-**【定义 2】**定义集合 $X_n = \{1,2,3,\cdots,n\}(n\in\Z^+)$，偏序集 $D_n=(X_n,|)$。
+**【定义 2】**定义集合 $X_n = \{1,2,3,\cdots,n\}(n\in\Z^+)$，偏序集 $D_n=(X_n, \mid)$。
 
-> $|$ 表示整除运算。易证，$|$ 是偏序关系。
+> $\mid$ 表示整除运算。易证，$\mid$ 是偏序关系。
 
-**【定理 2】**对于偏序集 $D_n$，$\forall a,b\in X_n$，若 $a|b$，则 $\mu(a,b)=\mu(1,\dfrac ba)$。
+**【定理 2】**对于偏序集 $D_n$，$\forall a,b\in X_n$，若 $a\mid b$，则 $\mu(a,b)=\mu(1,\dfrac ba)$。
 
-> **证明&emsp;**我不会证，故略。
+> **证明&emsp;**设 $b=ta$，对 $t$ 用数学归纳法。
+>
+> $t=1$ 时，$\mu(a,a)=1=\mu(1,1)$，原式成立。
+>
+> 假设 $t\leqslant k$ 时原式成立。当 $t=k+1$ 时：
+> $$
+> \begin{align} \mu(a,b) &= \mu(a,(k+1)a)\\
+> &= -\sum\limits_{u:a\preccurlyeq u\prec(k+1)a}\mu(a,u)\\
+> &= -\sum\limits_{1\leqslant i<k+1}\mu(a,ia)\\
+> &= -\sum\limits_{1\leqslant i<k+1}\mu(1,i)\\
+> &= \mu(1,k+1) = \mu(1,\dfrac ba)
+> \end{align}
+> $$
 
-> 这启发我们，$D_n$ 上第一个参数为 $1$ 的 $\mu$ 函数有较大价值。
+> 由于 $a\nmid b$ 时 $\mu(a,b)=0$，而 $a\mid b$ 时 $\mu(a,b)=\mu(1,\dfrac ba)$，所以只需考虑形如 $\mu(1,n)$ 的 $\mu$ 函数的值。
 
 **【定理 3】**对于偏序集 $D_n$，有
 $$
