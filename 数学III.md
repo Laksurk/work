@@ -1,4 +1,4 @@
-### 数学 III
+### 卷积与 $\mu$ 反演（数学篇）
 
 #### （一）偏序
 
@@ -6,7 +6,7 @@
 
 > 例如 $\{1,2\}\times\{a,b,c\}=\{(1,a),(1,b),(1,c),(2,a),(2,b),(2,c)\}$。
 
-**【定义 2】**对于集合 $X$，若 $R$ 为 $X\times X$ 的一个子集，则称 $R$ 为 $X$ 上的一个**二元关系**。对于 $x,y\in X$，若 $(x,y)\in R$，则称 $x$ 与 $y$ **满足关系** $R$，记作 $xRy$；反之则称 $x$ 与 $y$ **不满足关系** $R$，记作 $x\not Ry$。
+**【定义 2】**对于集合 $X\ne\varnothing$，若 $R$ 为 $X\times X$ 的一个子集，则称 $R$ 为 $X$ 上的一个**二元关系**。对于 $x,y\in X$，若 $(x,y)\in R$，则称 $x$ 与 $y$ **满足关系** $R$，记作 $xRy$；反之则称 $x$ 与 $y$ **不满足关系** $R$，记作 $x\not Ry$。
 
 **【定义 3】** 对于集合 $X$ 和其上的二元关系 $R$，$R$ 可能具有以下性质：
 
@@ -28,50 +28,53 @@
 
 > 如 $X=\left\{1,2,3\right\}$ 时，$\leqslant$ 是全序关系，但 $<$ 不是。
 
-#### （二）卷积与逆函数
+**【定义 7】**对于偏序集 $(X,\preccurlyeq)$，若元素 $u$ 满足 $\forall x\in X$，有 $u\preccurlyeq x$，则称 $u$ 为该偏序集的**最小元**，常记为 $0$。
 
-**【定义 1】**对于偏序集  $(X,\preccurlyeq)$，对于二元函数 $f:X\times X\rightarrow \R$，若 $\forall x\npreceq y$ 都有  $f(x,y)=0$，则称 $f$ 为一个**“好函数”**；记所有 $X$ 上的“好函数”的集合为 $\cal F$$(X)$。
+> 显然，偏序集的**最小元唯一**（当然，无穷集也可能不存在最小元，如偏序集 $(\Z,\le)$）。
 
-**【定义 2】**对于 $f,g\in \cal F$$(X)$，定义 $f,g$ 的**卷积** $h=f*g$ $(h\in \cal F$$(X))$ 为
+#### （二）卷积
+
+**【定义 1】**对于偏序集  $(X,\preccurlyeq)$，记所有满足 $\forall x,y\in X\land x\npreceq y$ 有 $f(x,y)=0$ 的二元函数 $f:X\times X\mapsto \R$ 组成的集合为 $\cal F$$(X)$；记 $\cal F$$(X)$ 中所有满足 $\forall x\in X$ 有 $f(x,x)\ne0$ 的二元函数 $f$ 组成的集合为 $\cal F’$$(X)$。
+
+**【定义 2】**对于 $f,g\in \cal F$$(X)$，定义 $f,g$ 的**卷积** $h=f*g$ 为
 $$
-h(x,y)=\left\{\begin{array}{l}
-\sum\limits_{z:x\preccurlyeq z\preccurlyeq y}f(x,z)g(z,y) & x\preccurlyeq y\\
-0 & \mathrm{otherwise}
-\end{array}\right.
+h(x,y)=
+\sum\limits_zf(x,z)g(z,y)
 $$
+
+> 注：当 $x\npreceq y$ 时， $x\preccurlyeq z\preccurlyeq y$ 无法成立，此时 $h(x,y)=0$。
+
+容易验证，$h\in \cal F$$(X)$，即 $\cal F$$(X)$ 上的卷积运算具有**封闭性**。
 
 **【定理 1】**$(f*g)*h=f*(g*h)$，即**卷积满足结合律**。
 
-> **证明&emsp;**利用卷积定义展开式子，交换求和顺序即可。
+> **证明&emsp;**将卷积展开并交换求和顺序即可。
 > $$
 > \begin{align}&((f*g)*h)(x,y)\\
-> =&\sum\limits_{z:x\preccurlyeq z\preccurlyeq y}(\sum\limits_{u:x\preccurlyeq u\preccurlyeq z}f(x,u)g(u,z))h(z,y)\\
-> =&\sum\limits_{z:x\preccurlyeq z\preccurlyeq y}\sum\limits_{u:x\preccurlyeq u\preccurlyeq z}f(x,u)g(u,z)h(z,y)\\
-> =&\sum\limits_{z:x\preccurlyeq z\preccurlyeq y}\sum\limits_{u}[x\preccurlyeq u\preccurlyeq z]f(x,u)g(u,z)h(z,y)\\
-> =&\sum\limits_{u}\sum\limits_{z:x\preccurlyeq z\preccurlyeq y}[x\preccurlyeq u\preccurlyeq z]f(x,u)g(u,z)h(z,y)\\
-> =&\sum\limits_{u:x\preccurlyeq u\preccurlyeq y}\sum\limits_{z:u\preccurlyeq z\preccurlyeq y}f(x,u)g(u,z)h(z,y)\\
-> =&\sum\limits_{u:x\preccurlyeq u\preccurlyeq y}f(x,u)\sum\limits_{z:u\preccurlyeq z\preccurlyeq y}g(u,z)h(z,y)\\
-> =&\sum\limits_{u:x\preccurlyeq u\preccurlyeq y}f(x,u)(g*h)(u,z)\\
+> =&\sum\limits_z(\sum\limits_uf(x,u)g(u,z))h(z,y)\\
+> =&\sum\limits_z\sum\limits_uf(x,u)g(u,z)h(z,y)\\
+> =&\sum\limits_uf(x,u)\sum\limits_zg(u,z)h(z,y)\\
 > =&(f*(g*h))(x,y)
 > \end{align}
 > $$
 
 **【定义 3】**对于偏序集 $(X,\preccurlyeq)$，定义 $\delta(x,y)=[x=y]$ $(\delta\in\cal F$$(X))$。
 
-> 若命题 $P$ 成立，则 $[P]=1$；否则 $[P]=0$。
+> 方括号是**艾弗森约定**：若命题 $P$ 成立，则 $[P]=1$；否则 $[P]=0$。
 
 **【定理 2】**$\forall f\in \cal F$$(X)$，$\delta*f=f*\delta=f$。
 
 > **证明&emsp;**由卷积的定义，这是显然的。
 
-**【定义 4】**对于 $f\in \cal F$$(X)$ 且满足 $\forall x\in X$，$f(x,x)\ne0$。若 $g*f=\delta$ $(g\in \cal F$$(X))$，则称 $g$ 为 $f$ 的**左逆函数**；若 $f*g=\delta$，则称 $g$ 为 $f$ 的**右逆函数**。
+因此，函数 $\delta$ 即为 $\cal F$$(X)$ 上的卷积运算的**单位元**。
 
-**【定理 3】**$\forall f\in\cal F$$(X)$，$f$  的左逆函数 $g$ 的递推式为
+**【定义 4】**对于 $f\in \cal F'$$(X)$ ，若 $g*f=\delta$ $(g\in \cal F'$$(X))$，则称 $g$ 为 $f$ 的**左逆函数**；若 $f*g=\delta$，则称 $g$ 为 $f$ 的**右逆函数**。
+
+**【定理 3】**$\forall f\in\cal F'$$(X)$，$f$  的左逆函数 $g$ 的递推式为
 $$
 g(x,y)=\left\{\begin{array}{l}
 \dfrac1{f(y,y)} & x=y\\
--\dfrac1{f(y,y)}\sum\limits_{z:x\preccurlyeq z\prec y}g(x,z)f(z,y) & x\prec y\\
-0 & \mathrm{otherwise}
+-\dfrac1{f(y,y)}\sum\limits_{z:x\preccurlyeq z\prec y}g(x,z)f(z,y) &\mathrm{otherwise}
 \end{array}\right.
 $$
 
@@ -79,16 +82,17 @@ $f$  的右逆函数 $h$ 的递推式为
 $$
 h(x,y)=\left\{\begin{array}{l}
 \dfrac1{f(y,y)} & x=y\\
--\dfrac1{f(y,y)}\sum\limits_{z:x\preccurlyeq z\prec y}f(x,z)h(z,y) & x\prec y\\
-0 & \mathrm{otherwise}
+-\dfrac1{f(y,y)}\sum\limits_{z:x\preccurlyeq z\prec y}f(x,z)h(z,y)&\mathrm{otherwise}
 \end{array}\right.
 $$
 
-> **证明&emsp;**直接根据逆函数的定义展开卷积后解得。
+> 注意：这里使用 $\cal F$$(X)$ 的子集 $\cal F'$$(X)$，是因为 $f(y,y)$ 出现在分母，必须非 $0$。
+
+> **证明&emsp;**直接根据逆函数的定义展开卷积后解得。容易验证，$g,h\in\cal F'$$(X)$。
 
 因此，**左、右逆函数存在且唯一**。
 
-**【定理 4】** $\forall f\in\cal F$$(X)$，$f$  的**左、右逆函数相同**。
+**【定理 4】** $\forall f\in\cal F'$$(X)$，$f$  的**左、右逆函数相同**。
 
 > **证明&emsp;**设 $f$ 的左、右逆函数分别为 $g$、$h$，即 $g*f=f*h=\delta$
 >
@@ -100,100 +104,230 @@ $$
 >
 >$\therefore g=h$
 
-因此将左右逆函数统称为**逆函数**。即：**任意一个 $f\in\cal F$$(X)$ 必有唯一的逆函数 $g$，使得 $f*g=g*f=\delta$。**
+因此将左右逆函数统称为**逆函数**。**任意一个 $f\in\cal F'$$(X)$ 必有唯一的逆函数 $g\in\cal F'$$(X)$，使得 $f*g=g*f=\delta$。**记 $f$ 的逆函数为 $f^{-1}$。
 
-#### （三）广义莫比乌斯反演
+> 注意：$f^{-1}$ 不是指反函数！实际上这里不存在反函数的概念。
 
-**【定义 1】**对于偏序集 $(X,\preccurlyeq)$，定义 $\zeta(x,y)=[x\preccurlyeq y]$ $(\zeta\in\cal F$$(X))$；定义 $\mu$ 为 $\zeta$ 的反函数，即 $\mu*\zeta=\zeta*\mu=\delta$。称 $\mu$ 为 $(X,\preccurlyeq)$ 上的**莫比乌斯函数**。
+现在我们可以看到，代数结构 $(\cal F'$$(X),*)$ 实际上构成了一个**群**。
 
-> 显然，$\mu(x,x)=1$；且对于 $x\npreceq y$，$\mu(x,y)=0$。
+#### （三）广义 $\mu$
 
-**【定理 1】**对于偏序集  $(X,\preccurlyeq)$，若 $x\prec y$，则有
+**【定义 1】**对于偏序集 $(X,\preccurlyeq)$，定义 $\zeta(x,y)=[x\preccurlyeq y]$ $(\zeta\in\cal F$$(X))$；定义 $\mu=\zeta^{-1}$ 为 $\zeta$ 的反函数，即 $\mu*\zeta=\zeta*\mu=\delta$。称 $\mu$ 为 $(X,\preccurlyeq)$ 上的**（广义）莫比乌斯函数**。
+
+> 将卷积展开，由 $\zeta$ 和 $\mu$ 的定义，立刻得到下面的等式：
+
+**【定理 1】**对于偏序集  $(X,\preccurlyeq)$，若 $x,y\in X$，则有
 $$
-\sum\limits_{z:x\preccurlyeq z\preccurlyeq y}\mu(x,z)=\sum\limits_{z:x\preccurlyeq z\preccurlyeq y}\mu(z,y)=0
+\sum\limits_{z:x\preccurlyeq z\preccurlyeq y}\mu(x,z)=\sum\limits_{z:x\preccurlyeq z\preccurlyeq y}\mu(z,y)=[x\preccurlyeq y]
 $$
 
-> **证明&emsp;**分别将 $\mu*\zeta$ 和 $\zeta*\mu$ 展开，化简式子易得。
+代入 $x=y$ 得到 $\mu(x,x)=1$。
 
-**【定理 2】莫比乌斯反演公式**：对于有限偏序集 $(X,\preccurlyeq)$，若函数 $F$、$G:X\rightarrow\R$ 满足
+**【定理 2】（广义）莫比乌斯反演公式**：对于**存在最小元 $0$** 的偏序集 $(X,\preccurlyeq)$，$\forall F,G:X\mapsto\R$，有
 $$
-G(x)=\sum\limits_{z:z\preccurlyeq x}F(z)
+G(x)=\sum\limits_{y:y\preccurlyeq x}F(y)\ \ \Leftrightarrow\ \  F(x)=\sum\limits_{y:y\preccurlyeq x}\mu(y,x)G(y)
 $$
-则有：
-$$
-F(x)=\sum\limits_{y:y\preccurlyeq x}G(y)\mu(y,x)
-$$
-> **证明&emsp;**将 $G(y)$ 代入，交换求和顺序，然后根据 $\mu$ 函数的定义简化式子即可。
+
+>注：这里要求偏序集存在最小元，是为了确保和式只包含有限项。
+
+> **证明&emsp;**构造两个函数 $f,g\in\cal F$$(X)$：
 > $$
-> \begin{align}&\sum\limits_{y:y\preccurlyeq x}G(y)\mu(y,x)\\
-> =& \sum\limits_{y:y\preccurlyeq x}\sum\limits_{z:z\preccurlyeq y}F(z)\mu(y,x)\\
-> =& \sum\limits_{y:y\preccurlyeq x}\sum\limits_{z}[z\preccurlyeq y]F(z)\mu(y,x)\\
-> =& \sum\limits_{z}F(z)\sum\limits_{y:y\preccurlyeq x}[z\preccurlyeq y]\mu(y,x)\\
-> =& \sum\limits_{z}F(z)\sum\limits_{y:z\preccurlyeq y\preccurlyeq x}\zeta(z,y)\mu(y,x)\\
-> =& \sum\limits_{z}F(z)\delta(z,x)\\
-> =& F(x)
-> \end{align}\\
+> f(x,y)=[x=0]F(y)\\
+> g(x,y)=[x=0]G(y)
 > $$
-
-#### （四）狭义莫比乌斯反演
-
-**【定义 1】**对于偏序集 $(X,\preccurlyeq_1)$、$(Y,\preccurlyeq_2)$，设集合 $X\times Y$ 上有二元关系 $R=\{((x,y),(x',y')):x\preccurlyeq_1x', y\preccurlyeq_2y'\}$，称 $(X\times Y,R)$  为这两个**偏序集的直积**。
-
-> 易证，$R$ 为偏序关系，即**偏序集的直积还是偏序集**。将 $R$ 写为 $\preccurlyeq$，则有
+> 则原命题等价于
 > $$
-> (x,y)\preccurlyeq(x',y')\iff x\preccurlyeq_1x'\land y\preccurlyeq_2y'
+> g(0,x)=\sum\limits_{y:0\preccurlyeq y\preccurlyeq x}f(0,y)\ \ \Leftrightarrow\ \  f(0,x)=\sum\limits_{y:0\preccurlyeq y\preccurlyeq x}g(0,y)\mu(y,x)
 > $$
+> 该式等价于卷积表示的
+> $$
+> g=f*\zeta\ \ \Leftrightarrow\ \ f=g*\mu
+> $$
+> 由 $\mu=\zeta^{-1}$，这是显然的。
 
-**【定理 1】**对于偏序集 $(X,\preccurlyeq_1)$、$(Y,\preccurlyeq_2)$，设其上的莫比乌斯函数分别为 $\mu_1$、$\mu_2$，设这两个偏序集的直积 $(X\times Y,\preccurlyeq)$ 上的莫比乌斯函数为 $\mu$，则有
-$$
-\mu((x,y),(x',y'))=\mu_1(x,x')\mu_2(y,y')
-$$
-> **证明&emsp;**若 $(x,y)\not\preccurlyeq(x',y')$，则 $左边=0=右边$。
+> 这个等式大有用处，它利用了 $\mu$ 的性质，使得两个函数可以互相转化（即“反演”），也让 $\mu$ 成为一个经常出现的函数。
+
+#### （四）数论函数
+
+**【定理 1】**设 $\mid$ 表示整除运算，则 $(\N^+,\mid)$ 为偏序集。
+
+> **证明&emsp;**容易验证有 $x\mid x$（自反性），$x\ne y\land x\mid y\Rightarrow y\nmid x$（反对称性），$x\mid y\land y\mid z\Rightarrow x\mid z$（传递性）。
+
+**【定理 2】**对于偏序集 $(\N^+,\mid)$ ，若函数 $f\in\cal F$$(\N^+)$ 满足 $\forall a,k\in \N^+$ 有 $f(a,ka)=f(1,k)$，则称 $f$ 为**可约函数**。
+
+> 注：“可约函数”这一名称系笔者瞎编。
+
+容易验证，$\zeta(a,b)=[a\mid b]$ 和 $\delta(a,b)=[a=b]$ 都是“可约函数”。
+
+**【定义 1】**若一元函数 $f:\N^+\mapsto\R$，则称 $f$ 为**数论函数**。
+
+**【定理 3】**二元的“可约函数”能与一元的数论函数建立起双射（一一对应）关系。
+
+> **证明&emsp;**首先说明，一个“可约函数” $f$ 仅由所有 $f(1,k)$ $(k\in\N^+)$ 的取值确定：对于 $a,b\in\N^+$，当 $a\mid b$ 时，$f(a,b)=f(1,\dfrac ba)$；当 $a\not\mid b$ 时，因为 $f\in\cal F$$(\N^+)$，所以 $f(a,b)=0$。
 >
-> 若 $(x,y)=(x',y')$，则 $左边=1=右边$。
->
-> 若 $(x,y)\prec(x',y')$，对满足 $(x,y)\preccurlyeq (u,v)\preccurlyeq (x',y')$ 的 $(u,v)$ 的**个数**用数学归纳法：
+> 接下来，隐去 $f(1,k)$ 的固定参数 $1$，即设 $f(k)=f(1,k)$，便建立了所要的对应关系。
+
+> 这说明，“可约函数”和数论函数是等价的。
+
+**【定理 4】“可约函数”的卷积也是“可约函数”**，即 $f,g$ 为可约函数 $\Rightarrow$ $h=f*g$ 为可约函数。
+
+> **证明&emsp;**直接证明即可。
 > $$
-> \begin{align} & \mu((x,y),(x',y'))\\
-> =& -\sum\limits_{(u,v):(x,y)\preccurlyeq (u,v)\prec (x',y')}\mu((x,y),(u,v))\\
-> =& -\sum\limits_{(u,v):(x,y)\preccurlyeq (u,v)\prec (x',y')}\mu_1(x,u)\mu_2(y,v)\\
-> =& -\sum\limits_{(u,v):(x,y)\preccurlyeq (u,v)\preccurlyeq (x',y')}\mu_1(x,u)\mu_2(y,v)+\mu_1(x,x')\mu_2(y,y')\\
-> =& -\sum\limits_{u:x\preccurlyeq u\preccurlyeq x'}\sum\limits_{v:y\preccurlyeq v\preccurlyeq y'}\mu_1(x,u)\mu_2(y,v)+\mu_1(x,x')\mu_2(y,y')\\
-> =& -\sum\limits_{u:x\preccurlyeq u\preccurlyeq x'}\mu_1(x,u)\sum\limits_{v:y\preccurlyeq v\preccurlyeq y'}\mu_2(y,v)+\mu_1(x,x')\mu_2(y,y')\\
-> =& \mu_1(x,x')\mu_2(y,y')
+> \begin{align}h(a,ka)&=\sum_{u:a\mid u\mid ka}f(a,u)g(u,ka)\\
+> &=\sum_{i:i\mid k}f(1,i)g(i,k)\quad(i=\dfrac ua)\\
+> &=h(1,k)
 > \end{align}
 > $$
 
-**【定义 2】**定义集合 $X_n = \{1,2,3,\cdots,n\}(n\in\Z^+)$，偏序集 $D_n=(X_n, \mid)$。
+**【定理 5】“可约函数”的逆也是“可约函数”**，即当 $g*f=\delta$ 时 $f$ 是可约函数 $\Rightarrow g$ 是可约函数。
 
-> $\mid$ 表示整除运算。易证，$\mid$ 是偏序关系。
-
-**【定理 2】**对于偏序集 $D_n$，$\forall a,b\in X_n$，若 $a\mid b$，则 $\mu(a,b)=\mu(1,\dfrac ba)$。
-
-> **证明&emsp;**设 $b=ta$，对 $t$ 用数学归纳法。
+> **证明&emsp;**欲证明结论即 $\forall a,k\in\N^+$ 有 $g(a,ka)=g(1,k)$。对 $k$ 应用数学归纳法。
 >
-> $t=1$ 时，$\mu(a,a)=1=\mu(1,1)$，原式成立。
+> $k=1$ 时，根据（定理 2-3）有 $g(a,a)=f(a,a)^{-1}=f(1,1)^{-1}=g(1,1)$。
 >
-> 假设 $t\leqslant k$ 时原式成立。当 $t=k+1$ 时：
+> 假设 $k<n$ 时命题成立。当 $k=n$ 时，根据（定理 2-3）有
 > $$
-> \begin{align} \mu(a,b) &= \mu(a,(k+1)a)\\
-> &= -\sum\limits_{u:a\preccurlyeq u\prec(k+1)a}\mu(a,u)\\
-> &= -\sum\limits_{1\leqslant i<k+1}\mu(a,ia)\\
-> &= -\sum\limits_{1\leqslant i<k+1}\mu(1,i)\\
-> &= \mu(1,k+1) = \mu(1,\dfrac ba)
+> \begin{align} g(a,na)
+> &= -\dfrac1{f(a,na)}\sum\limits_{\substack{u:a\mid u\mid na\\u\ne na}}g(a,u)f(u,na)\\
+> &= -\dfrac1{f(a,na)}\sum\limits_{\substack{i:i\mid n\\i\ne n}}g(a,ia)f(ia,na)\quad(i=\dfrac ua)\\
+> &= -\dfrac1{f(1,n)}\sum\limits_{\substack{i:i\mid n\\i\ne n}}g(1,i)f(i,n)\\
+> &= g(1,n)
+> \end{align}
+> $$
+> 因此，$\forall k\in\N^+$ 原命题成立。
+
+到这里我们实际上证明了，$\cal F'$$(X)$ 中所有“可约函数”构成了一个**子群**。
+
+**【定义 2】**基本的数论函数：
+
+- $\mathrm{e}(n)=[n=1]$
+- $\mathrm{I}(n)=1$
+- $\mathrm{id}(n)=n$
+
+> $\mathrm e$ 与 $\delta$ 对应，$\mathrm I$ 与 $\zeta$ 对应；如果我们定义 $\mathrm{rdiv}(a,ka)=k$（虽然没什么用），那么 $\mathrm{id}$ 与之对应。
+
+**【定义 3】**对于数论函数 $f,g$，定义 $f,g$ 的**狄利克雷卷积** $h=f*g$（$h$ 为数论函数）为
+$$
+h(n)=\sum_{d\mid n}f(d)g(\dfrac nd)
+$$
+显然，数论函数的狄利克雷卷积与“可约函数”的卷积等价。
+
+> 原因是 $g(1,\dfrac nd)=g(d,n)$。
+
+由和式的对称性，**狄利克雷卷积满足交换律**，即 $f*g=g*f$。因此，所有满足 $f(1)\ne0$ 的数论函数和其上的狄利克雷卷积构成**交换群**，满足交换律、结合律，有单位元 $\mathrm e$，且函数有唯一的逆。
+
+#### （五）积性函数
+
+**【定义 1】**若数论函数 $f$ 满足 $\forall x,y\in\N^+$ 有 $x\perp y\Rightarrow f(xy)=f(x)f(y)$，则称 $f$ 为**积性函数**。
+
+> 垂直符号表示互质，即 $x\perp y\Leftrightarrow \gcd(x,y)=1$。
+
+容易验证，$\mathrm{e}$、$\mathrm{I}$、$\mathrm{id}$ 均为积性函数。
+
+因为 $1$ 与任何正整数互质，所以对于积性函数 $f$ 一定满足 $f(1)=1\ne0$。
+
+**【定理 1】积性函数的卷积也是积性函数**，即 $f,g$ 是积性函数 $\Rightarrow h=f*g$ 是积性函数。
+
+> **证明&emsp;**设 $x,y\in \N^+$，$x\perp y$。
+> $$
+> \begin{align}
+> h(xy)&=\sum_{d\mid xy}f(d)g(\dfrac{xy}d)\\
+> &=\sum_{d_1\mid x}\sum_{d_2\mid y}f(d_1d_2)g(\dfrac{xy}{d_1d_2})\\
+> &=\sum_{d_1\mid x}\sum_{d_2\mid y}f(d_1)f(d_2)g(\dfrac x{d_1})g(\dfrac y{d_2})\\
+> &=(\sum_{d_1\mid x}f(d_1)g(\dfrac x{d_1}))(\sum_{d_2\mid y}f(d_2)g(\dfrac y{d_2}))\\
+> &=h(x)h(y)
 > \end{align}
 > $$
 
-> 由于 $a\nmid b$ 时 $\mu(a,b)=0$，而 $a\mid b$ 时 $\mu(a,b)=\mu(1,\dfrac ba)$，所以只需考虑形如 $\mu(1,n)$ 的 $\mu$ 函数的值。
+> 注：第二步和第三步用到了条件 $x\perp y$ ，同时应用了一个简单的结论：若 $x$ 与 $y$ 互质，则 $x$ 的因子与 $y$ 的因子一定互质。
 
-**【定理 3】**对于偏序集 $D_n$，有
+**【定理 2】积性函数的逆也是积性函数**，即当 $g*f=\mathrm e$ 时 $f$ 是积性函数 $\Rightarrow g$ 是积性函数。
+
+> **证明&emsp;**欲证明结论即 $\forall xy\in\N^+$ 有 $x\perp y\Rightarrow g(xy)=g(x)g(y)$。对 $k=xy$ 应用数学归纳法。
+>
+> $k=1$ 时，有 $g(1)=1=g(1)g(1)$。
+>
+> 假设 $k<n$ 时命题成立。当 $k=n$ 时，$\forall x,y\in \N^+$ 满足 $xy=n\land x\perp y$ 有
+> $$
+> \begin{align}
+> g(xy)&=-\sum_{\substack{d\mid xy\\d\ne xy}}g(d)f(\dfrac {xy}d)\\
+> &=-\sum_{d_1\mid x}g(d_1)f(\dfrac x{d_1})\sum_{d_2\mid y}[d_1d_2\ne n]g(d_2)f(\dfrac y{d_2})\\
+> &=-(\sum_{d_1\mid x}g(d_1)f(\dfrac x{d_1}))(\sum_{d_2\mid y}g(d_2)f(\dfrac y{d_2}))+g(x)f(1)g(y)f(1)\\
+> &=-\mathrm e(x)\mathrm e(y)+g(x)f(1)g(y)f(1)\\
+> &=-\mathrm e(xy)+g(x)g(y)\\
+> &=g(x)g(y)
+> \end{align}
+> $$
+> 因此，$\forall k\in\N^+$ 原命题成立。
+
+> 上面两个证明与（定理 4-4）和（定理 4-5）的证明极其相似。
+
+这样我们又发现，积性函数及其上的狄利克雷卷积也构成**交换群**。这是非常优秀的性质。
+
+#### （六）$\mu$ 与 $\phi$
+
+广义 $\mu=\zeta^{-1}$ 是“可约函数”，因此可以定义数论函数版本的 $\mu$ 函数：
+
+**【定义 1】**对于偏序集 $(\N^+,\mid)$ ，定义函数 $\mu(n)=\mu(1,n)$。称 $\mu$ 为  $\N^+$ 上的**（狭义）莫比乌斯函数**。
+
+与广义 $\mu$ 对应地有 $\mu=\mathrm I^{-1}$，由（定理 5-2）我们立即知道 **$\mu$ 是积性函数**！这样就很容易计算 $\mu(n)$ 的值了。
+
+**【定理 1】**$\mu$ 函数具有通项公式
 $$
-\mu(1,n)=\left\{\begin{array}{l}
-1 & n=1\\
-(-1)^k & n=p_1p_2\cdots p_k,\ \ p_i\ne p_j(i\ne j)\\
+\mu(n)=\mu(p_1^{a_1}p_2^{a_2}\cdots p_k^{a_k})=\left\{\begin{array}{l}(-1)^k & a_1=a_2=\cdots=a_k=1\\
 0 & \mathrm{otherwise}
 \end{array}\right.
 $$
 
-> **证明&emsp;**将 $n$ 质因数分解为 $n=p_1^{a_1}p_2^{a_2}\cdots p_k^{n_k}$。
+> **证明&emsp;**由 $\mu*\mathrm I=\mathrm e$ 有 $\sum_{d|n}\mu(d)=[n=1]$。代入 $n=p^k(k\in\N^+)$ 得
+> $$
+> \mu(1)+\mu(p)+\mu(p^2)+\cdots+\mu(p^k)=0
+> $$
+> 由于 $\mu(1)=1$，有 $\mu(p)=-1$，$\mu(p^k)=0$ $(k\ge2)$。再根据 $\mu$ 的积性得到欲证结论。
+
+称 $\mu$ 值非 $0$ 的正整数为 `square free number`，即无平方因子的数（免平方正整数）。
+
+与广义 $\mu$ 反演对应地有：
+
+**【定理 2】（狭义）莫比乌斯反演公式**：对于数论函数 $f,g$，有
+$$
+g(n)=\sum_{d\mid n}f(d)\ \ \Leftrightarrow\ \ f(n)=\sum_{d\mid n}\mu(\dfrac nd)g(d)
+$$
+
+> 这相当于 $g=f*\mathrm I\ \Leftrightarrow f=g*\mu$。
+
+该等式也叫**戴德金-刘维尔法则**。
+
+**【定义 2】欧拉函数**：定义数论函数 $\phi(n)=\left|\{x:x\le n\land x\perp n\}\right|$，即 $[1,n]$ 中与 $n$ 互质的数的个数。写成求和式的形式即为 $\phi(n)=\sum_{i=1}^n[i\perp n]$，可用来对含 $\phi$ 的式子进行变形，下面我们会看到它的作用。
+
+**【定理 3】**$\phi$ 函数满足关系 $\phi=\mu*\mathrm{id}$，或等价的 $\phi*\mathrm I=\mathrm{id}$。
+
+> **证明&emsp;**考虑 $(0,1]$ 中分母为 $n$ 的所有 $n$ 个分数 $\{\dfrac 1n,\dfrac 2n,\dfrac 3n,\cdots,\dfrac nn\}$。将这些分数约分，化成最简。这些最简分数互不相等，且分母一定是 $n$ 的因子。反过来，只要分数 $0<\dfrac ad\le1$ 最简且 $d\mid n$，它就一定出现在集合中（化简前是 $\dfrac{an/d}n$）。因此，分母为 $d$ $(d\mid n)$ 的分数恰有 $\phi(d)$ 个。用这种方式统计总的分数个数，就得到 $\sum_{d\mid n}\phi(d)=n$，正是欲证的结论。
+
+> 这个神奇的证明来自《具体数学（第2版）》。我们可以将其写成严格的计算步骤：
+> $$
+> \begin{align}
+> \sum_{d\mid n}\phi(d)&=\sum_{d\mid n}\sum_{1\le i\le d}[i\perp d]\\
+> &=\sum_{d\mid n}\sum_{1\le i\le d}[i\perp d]\sum_{1\le g\le n}[i=\dfrac {dg}n]\\
+> &=\sum_{1\le g\le n}\sum_{d\mid n}[n\mid dg][\dfrac{dg}n\perp d]\\
+> &=\sum_{1\le g\le n}\sum_{d\mid n}[\dfrac nd\mid g][\gcd(g,n)=\dfrac nd]\\
+> &=\sum_{1\le g\le n}1=n
+> \end{align}
+> $$
+> 该等式证法极多，常见的是用数学归纳法，也可以借助 $\mu$ 函数、容斥原理等，还有各种纯数论证法。
+
+有了该定理，立刻得到：**$\phi$ 是积性函数**！下面我们来计算 $\phi(n)$ 的值。
+
+**【定理 4】**$\phi$ 函数具有通项公式
+$$
+\phi(n)=\phi(p_1^{a_1}p_2^{a_2}\cdots p_k^{a_k})=n\prod_{i=1}^k(1-\dfrac1{p_k})
+$$
+
+> **证明&emsp;**根据（定理 6-3）代入 $n=p^k(k\in\N^+)$ 得
+> $$
+> \phi(1)+\phi(p)+\phi(p^2)+\cdots+\phi(p^k)=p^k
+> $$
+> 由于 $phi(1)=1$，有 $\phi(p^k)=p^k-p^{k-1}$ $(k\ge1)$。再根据 $\phi$ 的积性得到欲证结论。
+
+> $\phi$ 的证明与 $\mu$ 的非常相似。
 
