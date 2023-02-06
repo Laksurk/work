@@ -1,3 +1,7 @@
+### LOG
+
+---
+
 $$
 {n\brace k}={n-1\brace k-1}+k{n-1\brace k}\\
 \Delta_n\left(\dfrac1{k^{n}}{n\brace k}\right)=\dfrac1{k^{n+1}}{n\brace k-1}\\
@@ -36,5 +40,32 @@ $$
 
 补充上条：max里面的d和外面的d无甚关系，字母不够了. 
 
+再次日补充：想出题. 
+
 ---
 
+$$
+\begin{align}
+&\ \ \ \ \sum_{p\le\sqrt N}\log_pN\\
+&=\sum_{p\le\sqrt N}\dfrac{\ln N}{\ln P}\\
+&=\sum_{k}[k\ln k\le\sqrt N]\dfrac{\ln N}{\ln(k\ln k)}\\
+\end{align}
+$$
+
+干啥呢. 不是瓶颈. 不要浪费时间. 
+
+>QF P139 幸运数字 $\sigma$ 计数. 
+
+尝试搞一下 DFS 的复杂度. 
+$$
+T(n,i)=
+$$
+搞不出来……这怎么能搞出来啊. 
+
+能否放宽了毛估估，比如 $n$ 的 $\log n$ 个素因子随便组合，总共的组合数是贝尔数. OEIS A000110，貌似是指数级别的？……这不又回去了. 
+
+是否n=奇素数的大于1次幂时都无解？
+
+貌似没道理无解……懒得打表找规律了. 
+
+---
