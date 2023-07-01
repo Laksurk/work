@@ -1,6 +1,22 @@
-### Burnside 引理速通
+### 从入门到 Burnside 引理
 
-前置知识：知道群和子群的定义. 
+#### 〇、群
+
+设集合 $G$ 上有二元运算 $*:G\times G\mapsto G$，若以下三个性质成立，则称 $(G,*)$ 构成**群**：
+
+- **结合律**：$\forall a,b,c\in G$，$(ab)c=a(bc)$. 
+- **幺元**：　$\exist e\in G$ 使得 $\forall a\in G$，$ea=ae=a$，称 $e$ 为幺元. 
+- **逆元**：　$\forall a\in G$，$\exist a^{-1}\in G$ 使得 $a^{-1}a=aa^{-1}=e$，称 $a^{-1}$ 为 $a$ 的逆元. 
+
+在无歧义时，通常简记 $(G,*)$ 为 $G$，$a*b$ 为 $ab$. 
+
+若群 $G$ 有幺元 $e,e'$，必有 $e=ee'=e'$，因此幺元唯一. 类似地，容易证明任一元素 $a\in G$ 的逆元唯一，且左逆等于右逆. 
+
+若 $H$ 是 $G$ 的子集，且 $(H,*)$ 也构成群，则称 $H$ 为 $G$ 的子群. 设 $H$ 有幺元 $e'$，则在 $G$ 中有 $e'=ee'=e$，故 $H$ 的幺元一定是 $G$ 的幺元. 因此，检验 $H$ 是子群，只需要检验以下性质：
+
+- **封闭性**：$\forall a,b\in H$，$ab\in H$. 
+- **幺元**：　$e\in H$. 
+- **逆元**：　$\forall a\in H$，$a^{-1}\in H$. 
 
 #### 一、同余
 
@@ -54,9 +70,9 @@ $$
 
 对非空集合 $S$，在 $S$ 上可定义**映射** $S\mapsto S$. 设群 $G$ 是由若干映射 $g:S\mapsto S$ 和映射的**复合**运算 $\circ$ 构成的群. 
 
-- 结合律：$h\circ (g\circ f)=(h\circ g)\circ f$ 总是成立，这是因为两边都把 $s\in S$ 映到 $h(g(f(s)))$. 
-- 幺元：恒等映射 $\mathrm{id}_S\in G$ 把任何一个 $s\in S$ 映到自身，有 $f\circ\mathrm{id}_S=\mathrm{id}_S\circ f=f$. 
-- 逆元： $G$ 中元素可逆，因此这些映射都是**双射**，称作 $S$ 上的**变换**（因 $S$ 是有限集，也称**置换**）. 对 $f\in G$，$f$ 的逆元就是其逆映射 $f^{-1}$，有 $f\circ f^{-1}=f^{-1}\circ f=\mathrm{id}_S$. 
+- **结合律**：$h\circ (g\circ f)=(h\circ g)\circ f$ 总是成立，这是因为两边都把 $s\in S$ 映到 $h(g(f(s)))$. 
+- **幺元**：　恒等映射 $\mathrm{id}_S\in G$ 把任何一个 $s\in S$ 映到自身，有 $f\circ\mathrm{id}_S=\mathrm{id}_S\circ f=f$. 
+- **逆元**： 　$G$ 中元素可逆，因此这些映射都是**双射**，称作 $S$ 上的**变换**（因 $S$ 是有限集，也称**置换**）. 对 $f\in G$，$f$ 的逆元就是其逆映射 $f^{-1}$，有 $f\circ f^{-1}=f^{-1}\circ f=\mathrm{id}_S$. 
 
 映射的复合是群 $G$ 元素的乘积，因此 $g\circ f$ 通常简写成 $gf$；恒等映射 $\mathrm{id}_S$ 是群 $G$ 的幺元，因此也记作 $e$. $f(s)$ 又称元素 $f$ 对 $s$ 的**作用**，省略括号记成 $fs$. 这样，群 $G$ 在 $S$ 上的**作用**满足两条性质：
 
@@ -75,9 +91,9 @@ $$
 
 下面我们来说明，$S$ 的所有元素的轨道构成 $S$ 的划分. 
 
-- 自反性：$s=es\in O_s$. 
-- 对称性：$t\in O_s\Rightarrow t=gs,\ \exist g\in G\Rightarrow s=g^{-1}t,\ \exist g\in G\Rightarrow s\in O_t$. 
-- 传递性：$p\in O_t\land t\in O_s\Rightarrow p=gt\land t=fs,\ \exist g,f\in G\Rightarrow p=(gf)s,\ \exist g,f\in G\Rightarrow p\in O_s$. 
+- **自反性**：$s=es\in O_s$. 
+- **对称性**：$t\in O_s\Rightarrow t=gs,\ \exist g\in G\Rightarrow s=g^{-1}t,\ \exist g\in G\Rightarrow s\in O_t$. 
+- **传递性**：$p\in O_t\land t\in O_s\Rightarrow p=gt\land t=fs,\ \exist g,f\in G\Rightarrow p=(gf)s,\ \exist g,f\in G\Rightarrow p\in O_s$. 
 
 #### 五、稳定子
 
@@ -85,9 +101,9 @@ $$
 
 考虑所有使 $s$ 不变的映射 $g\in G$，它们构成的集合称为 $s$ 的**稳定子**，记作 $G_s$，即 $G_s:=\{g\in G:gs=s\}$. 下面我们来证明，$G_s$ 是 $G$ 的子群. 
 
-- 封闭性：$gs=s\land fs=s\Rightarrow (gf)s=s$. 
-- 幺元：$es=s$. 
-- 逆元：$gs=s\Rightarrow g^{-1}gs=g^{-1}s\Rightarrow s=g^{-1}s$. 
+- **封闭性**：$gs=s\land fs=s\Rightarrow (gf)s=s$. 
+- **幺元**：　$es=s$. 
+- **逆元**：　$gs=s\Rightarrow g^{-1}gs=g^{-1}s\Rightarrow s=g^{-1}s$. 
 
 既然稳定子 $G_s$ 是一个子群，如前所述，它的所有陪集确定了 $G$ 的划分 $G/G_s$. 
 
@@ -137,3 +153,37 @@ $$
 Burnside 引理：群 $G$ 作用于集合 $S$，将 $S$ 划分成若干个轨道，则轨道数是群 $G$ 所有元素不动点数目的平均值. 
 
 适用于等价关系定义简单的等价类计数问题. 
+
+#### 习题
+
+##### 【洛谷 P4980】
+
+设全体染色方案组成状态空间 $S$，$n$ 种染色方案上的旋转组成群 $G$，则所求本质不同方案数即为 $G$ 作用于 $S$ 的轨道数. 
+
+设 $g_i\in G$ 表示旋转 $i$ 格的变换. 由初等数论常识，将 $n$ 元环转过 $i$ 格，构成了 $n$ 个格上的 $\mathrm{gcd}(n,i)$ 个循环. 若某状态是 $g_i$ 的不动点，则其每个循环必须填同一种颜色. 于是 $g_i$ 的不动点数为 $n^{\mathrm{gcd}(n,i)}$. 
+
+由 Burnside 引理，轨道数为
+$$
+\begin{align}
+&\dfrac1n\sum\limits_{i=1}^nn^{\gcd(n,i)}
+\\=&\dfrac1n\sum_g\sum\limits_{i=1}^nn^g[g\mid n][g\mid i][\dfrac ng\perp\dfrac ig]
+\\=&\dfrac1n\sum_{g\mid n} n^g\sum\limits_{i=1}^{n/g}[\dfrac ng\perp i]&(gi\leftarrow i)
+\\=&\dfrac1n\sum_{g\mid n} n^g\phi(\dfrac ng)
+\end{align}
+$$
+通过对 $n$ 分解质因数求解上式，复杂度 $O(\sqrt n)$. 
+
+> 这题也可以用 $\mu$ 容斥解决，留做习题. 
+
+##### 【洛谷 P1446】
+
+设全体染色方案组成状态空间 $S$，由题意，添加恒等置换后，$m+1$ 种洗牌方案构成群 $G$，则所求即为 $G$ 作用于 $S$ 的轨道数. 
+
+洗牌方案 $g\in G$ 是在 $n$ 张牌上的置换，设其有 $i$ 个循环. 若某状态是 $g$ 的不动点，则每个循环必须染成相同颜色. 考虑每种颜色出现的次数是给定的，需要用 dp 求出 $g$ 的不动点数. 
+
+具体 dp 过程略. 
+
+##### 【洛谷 P4727】
+
+设全体 $n$ 个点的有标号无向图（看成一个对角线全为 $0$ 的对称0/1矩阵）组成状态空间 $S$，点标号上的全体置换构成群 $G$，则所求即为 $G$ 作用于 $S$ 的轨道数. 
+
